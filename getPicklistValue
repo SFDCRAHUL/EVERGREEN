@@ -1,0 +1,24 @@
+global class getPicklistValue implements OmniStudio.VlocityOpenInterface {     //OmniStudio is packgae name
+
+    public Boolean invokeMethod(String pickListMethod, Map<String, Object> input,
+                                Map<String, Object> outMap, Map<String, Object> options)
+    {
+        if (pickListMethod.equals('PopulateValue'))
+        {
+            List<Map<string, string>> Valueoptions = new List<Map<string, string>>();
+
+            for (Account accountValue : [SELECT Name, Id FROM Account])
+            {
+                Map<string, string> value = new Map<string, string>();
+                value.put('value', accountValue.Name);
+                value.put('name', accountValue.Id);
+
+                Valueoptions.add(value);
+            }
+            
+            outMap.put('options', Valueoptions);
+        }
+
+        return true;
+    }
+}
